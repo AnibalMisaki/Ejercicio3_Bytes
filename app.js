@@ -9,12 +9,11 @@ function iniciar(){
 
 function saludar(){
     let nombre = document.getElementById('nombre').value;
-    let numero = document.getElementById('numero').value;
     let nit = document.getElementById('nit').value;
     let fFundacion = document.getElementById('fFundacion').value;
     let descrip = document.getElementById('descrip').value;
     let id = document.getElementById('id').value;
-    CrearEmpresa(nombre,numero,nit, fFundacion, descrip, id)
+    CrearEmpresa(nombre, nit, fFundacion, descrip, id)
 }
 
 function CrearEmpresa(nombre, nit, fFundacion, descrip, id){
