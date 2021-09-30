@@ -11,18 +11,18 @@ function saludar(){
     let nombre = document.getElementById('nombre').value;
     let nit = document.getElementById('nit').value;
     let fFundacion = document.getElementById('fFundacion').value;
-    let descrip = document.getElementById('descrip').value;
+    let direccion = document.getElementById('direccion').value;
     let id = document.getElementById('id').value;
-    CrearEmpresa(nombre, nit, fFundacion, descrip, id)
+    CrearEmpresa(nombre, nit, fFundacion, direccion, id)
 }
 
-function CrearEmpresa(nombre, nit, fFundacion, descrip, id){
+function CrearEmpresa(nombre, nit, fFundacion, direccion, id){
     let empresa = {
         id: id,
         nombre: nombre,
         nit: nit,
         fFundacion: fFundacion,
-        descrip: descrip
+        direccion: direccion
     }
     console.log(empresa);
     Empresas.push(empresa);
@@ -31,6 +31,7 @@ function CrearEmpresa(nombre, nit, fFundacion, descrip, id){
 
 function GuardarLocalStorage(){
     localStorage.setItem('empresas', JSON.stringify(Empresas));
+    limpiar();
         //Empresas.shift();
     Mostrar();
 }
@@ -44,7 +45,7 @@ function Mostrar(){
     } else {
         Empresas.forEach((valor, i) =>{
             mostrar.innerHTML +=  `<div class="alert alert-success" role="alert">
-            <b>Nombre: ${valor.nombre}</b> - NIT: ${valor.nit} - Fecha Fundacion: ${valor.fFundacion} - Numero: ${valor.numero} - Descripcion: ${valor.descrip}
+            <b>Nombre: ${valor.nombre}</b> - NIT: ${valor.nit} - Fecha Fundacion: ${valor.fFundacion} -  Direccion: ${valor.direccion}
             <button type="button" class="btn btn-info" onclick="Editar(${i})">Edit</button>
             <button type="button" class="btn btn-danger" onclick="Eliminar(${i})">X</button>
         </div>`;
@@ -57,7 +58,7 @@ function Editar(index){
     document.getElementById('nombre').value = Empresas[index].nombre;
     document.getElementById('nit').value =  Empresas[index].nit;
     document.getElementById('fFundacion').value = Empresas[index].fFundacion;
-    document.getElementById('descrip').value =  Empresas[index].descrip;
+    document.getElementById('direccion').value =  Empresas[index].direccion;
     document.getElementById('id').value =  Empresas[index].id;
 
     document.getElementById('EditarT').addEventListener('click', () => EditarF(index))
@@ -70,13 +71,13 @@ function EditarF(y){
         nombre: nombre.value,
         nit: nit.value,
         fFundacion: fFundacion.value,
-        descrip: descrip.value
+        direccion: direccion.value
     }
     console.log(e);
     Empresas = Empresas.map((x,k) => {if(k === y ){}  return k === y ? e : x } );
     console.log(Empresas);
     GuardarLocalStorage();
-    //console.log(b);
+    limpiar();
     Mostrar();
    
 }
@@ -86,5 +87,8 @@ function Eliminar(index){
     GuardarLocalStorage();
 }
 
+function limpiar(){
+    document.getElementById("form").reset();
+}
 
 window.addEventListener("load", iniciar)
